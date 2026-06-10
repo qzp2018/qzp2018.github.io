@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zhipeng Qian</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #4a6cf7;
+      --accent-light: #eef1fe;
+      --text: #2c2c2c;
+      --muted: #666;
+      --border: #e8e8e8;
+      --bg: #fff;
+      --sidebar-width: 260px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      background: #f7f8fc;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .page-wrapper {
+      max-width: 1020px;
+      margin: 40px auto;
+      display: flex;
+      gap: 36px;
+      padding: 0 20px;
+      align-items: flex-start;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-width);
+      flex-shrink: 0;
+      position: sticky;
+      top: 40px;
+    }
+
+    .profile-card {
+      background: var(--bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 28px 22px;
+      text-align: center;
+    }
+
+    .avatar-wrap {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #c9d6ff, #e2e2e2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      color: #fff;
+      border: 3px solid var(--border);
+    }
+
+    .avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sidebar h1 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text);
+    }
+
+    .sidebar .title {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .sidebar .affil {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 8px;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+
+    .contact-list {
+      list-style: none;
+      margin-top: 14px;
+      text-align: left;
+    }
+
+    .contact-list li {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .contact-list .icon {
+      width: 16px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .social-links a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── Main ── */
+    .main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .section {
+      background: var(--bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 28px 30px;
+      margin-bottom: 22px;
+    }
+
+    .section h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section h2::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* About */
+    .about-text p {
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    /* News */
+    .news-list {
+      list-style: none;
+    }
+
+    .news-list li {
+      display: flex;
+      gap: 14px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .news-list li:last-child { border-bottom: none; }
+
+    .news-date {
+      color: var(--muted);
+      font-size: 12.5px;
+      white-space: nowrap;
+      padding-top: 2px;
+      min-width: 80px;
+    }
+
+    /* Publications */
+    .pub-item {
+      display: flex;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pub-item:last-child { border-bottom: none; }
+
+    .pub-num {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+      min-width: 22px;
+      padding-top: 2px;
+    }
+
+    .pub-content { flex: 1; }
+
+    .pub-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .pub-authors {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .pub-authors strong { color: var(--text); }
+
+    .pub-venue {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.2px;
+    }
+
+    .badge-conf {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .badge-oral {
+      background: #fff3e0;
+      color: #e65100;
+    }
+
+    .pub-links {
+      display: flex;
+      gap: 8px;
+      margin-top: 7px;
+    }
+
+    .pub-links a {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .pub-links a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Experience */
+    .exp-item {
+      display: flex;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exp-item:last-child { border-bottom: none; }
+
+    .exp-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .exp-content { flex: 1; }
+
+    .exp-title {
+      font-size: 14.5px;
+      font-weight: 600;
+    }
+
+    .exp-sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .exp-date {
+      font-size: 12.5px;
+      color: var(--muted);
+      white-space: nowrap;
+      padding-top: 3px;
+    }
+
+    .exp-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
+    /* Education */
+    .edu-item {
+      display: flex;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .edu-item:last-child { border-bottom: none; }
+
+    .edu-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: #e8f5e9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Awards */
+    .award-list {
+      list-style: none;
+    }
+
+    .award-list li {
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    .award-list li:last-child { border-bottom: none; }
+
+    .award-list li::before {
+      content: "🏆";
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--muted);
+      padding: 20px 0 40px;
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .page-wrapper {
+        flex-direction: column;
+        margin: 20px auto;
+      }
+      .sidebar {
+        width: 100%;
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="profile-card">
+      <div class="avatar-wrap">
+        <!-- Replace src with your actual photo -->
+        <!-- <img src="photo.jpg" alt="Zhipeng Qian" /> -->
+        🎓
+      </div>
+
+      <h1>Zhipeng Qian</h1>
+      <div class="title">
+        Algorithm Engineer<br>
+        <span style="font-size:12px;">Kuaishou Technology</span>
+      </div>
+      <div class="affil">
+        Key Lab of Multimedia Trusted Perception &amp; Efficient Computing, MoE
+      </div>
+
+      <ul class="contact-list">
+        <li>
+          <span class="icon">✉️</span>
+          <a href="mailto:qianzhipeng@stu.xmu.edu.cn">qianzhipeng@stu.xmu.edu.cn</a>
+        </li>
+        <li>
+          <span class="icon">📍</span>
+          <span>Nantong, Jiangsu, China</span>
+        </li>
+      </ul>
+
+      <div class="social-links">
+        <a href="https://github.com/qzp2018" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="mailto:qianzhipeng@stu.xmu.edu.cn">
+          <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+          </svg>
+          Email
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main Content ── -->
+  <main class="main">
+
+    <!-- About -->
+    <section class="section">
+      <h2>About Me</h2>
+      <div class="about-text">
+        <p>
+          I am currently an Algorithm Engineer in the <strong>AI Search &amp; Multimodal Understanding Group</strong>
+          at <strong>Kuaishou Technology</strong>, working on multimodal search and retrieval systems.
+        </p>
+        <p>
+          I received my M.S. degree from the <strong>Institute of Artificial Intelligence, Xiamen University</strong>
+          (2022–2025), advised by <a href="#">Prof. Xiaoshuai Sun</a>. Prior to that, I obtained my B.S. degree
+          in Statistics from <strong>Anhui University</strong> (2018–2022), ranking 3rd out of 24 with a GPA of 3.95.
+        </p>
+        <p>
+          My research interests lie in <strong>multimodal learning</strong>, <strong>3D perception</strong>,
+          and <strong>multimodal large language models</strong>.
+          I have published papers at top venues including AAAI, ECCV, EMNLP, and ACL.
+        </p>
+      </div>
+    </section>
+
+    <!-- News -->
+    <section class="section">
+      <h2>News</h2>
+      <ul class="news-list">
+        <li>
+          <span class="news-date">May 2026</span>
+          <span>🎉 One paper accepted at <strong>ACL 2026 Findings</strong> (CSMCIR: Composed Image Retrieval). [<a href="https://arxiv.org/abs/2601.03728">arXiv</a>]</span>
+        </li>
+        <li>
+          <span class="news-date">Jul 2025</span>
+          <span>🚀 Joined <strong>Kuaishou Technology</strong> as an Algorithm Engineer in the AI Search &amp; Multimodal Understanding Group.</span>
+        </li>
+        <li>
+          <span class="news-date">Jul 2025</span>
+          <span>📄 One paper accepted at <strong>CIKM 2025</strong> (UniECS: Unified Multimodal E-Commerce Search). [<a href="https://arxiv.org/abs/2508.13843">arXiv</a>]</span>
+        </li>
+        <li>
+          <span class="news-date">Jun 2025</span>
+          <span>🎓 Graduated from Xiamen University with an M.S. degree in Artificial Intelligence.</span>
+        </li>
+        <li>
+          <span class="news-date">Oct 2024</span>
+          <span>📄 One paper accepted at <strong>EMNLP 2024 Findings</strong> (AnyTrans: Image Translation). [<a href="https://arxiv.org/abs/2406.11432">arXiv</a>]</span>
+        </li>
+        <li>
+          <span class="news-date">Jul 2024</span>
+          <span>📄 One paper accepted at <strong>ECCV 2024</strong> (Multi-branch Collaborative Learning for 3D Visual Grounding). [<a href="https://arxiv.org/abs/2407.05363">arXiv</a>]</span>
+        </li>
+        <li>
+          <span class="news-date">Dec 2023</span>
+          <span>📄 One paper accepted at <strong>AAAI 2024</strong> (X-RefSeg3D: Referring 3D Instance Segmentation).</span>
+        </li>
+        <li>
+          <span class="news-date">Mar 2024</span>
+          <span>🏢 Joined <strong>Alibaba DAMO Academy</strong> as a Research Intern in the Multilingual Translation Team.</span>
+        </li>
+        <li>
+          <span class="news-date">2023</span>
+          <span>🏅 Awarded <strong>Xiamen University Graduate National Scholarship</strong>.</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Publications -->
+    <section class="section">
+      <h2>Publications</h2>
+
+      <div class="pub-item">
+        <div class="pub-num">[5]</div>
+        <div class="pub-content">
+          <div class="pub-title">CSMCIR: CoT-Enhanced Symmetric Alignment with Memory Bank for Composed Image Retrieval</div>
+          <div class="pub-authors"><strong>Zhipeng Qian</strong>, Xiaoshuai Sun, et al.</div>
+          <div class="pub-venue">
+            <span class="badge badge-conf">ACL 2026 Findings</span>
+          </div>
+          <div class="pub-desc" style="font-size:13px;color:#555;margin-top:6px;">
+            A unified representation framework that addresses fragmented representation spaces in composed image retrieval via multi-level CoT prompting, symmetric dual-tower architecture (shared Q-Former), and entropy-based dynamic memory bank.
+          </div>
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2601.03728" target="_blank">Paper</a>
+            <a href="https://github.com/qzp2018/CSMCIR" target="_blank">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">[4]</div>
+        <div class="pub-content">
+          <div class="pub-title">UniECS: Unified Multimodal E-Commerce Search Framework with Gated Cross-modal Fusion</div>
+          <div class="pub-authors"><strong>Zhipeng Qian</strong>, et al.</div>
+          <div class="pub-venue">
+            <span class="badge badge-conf">CIKM 2025</span>
+          </div>
+          <div class="pub-desc" style="font-size:13px;color:#555;margin-top:6px;">
+            A flexible unified architecture for diverse e-commerce retrieval scenarios (image, text, and composed modalities) via a single gated cross-modal fusion pipeline, eliminating the need for separate task-specific models.
+          </div>
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2508.13843" target="_blank">Paper</a>
+            <a href="https://github.com/qzp2018/UniECS" target="_blank">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">[3]</div>
+        <div class="pub-content">
+          <div class="pub-title">AnyTrans: Translate AnyText in the Image with Large Scale Models</div>
+          <div class="pub-authors"><strong>Zhipeng Qian</strong>, Xiaoshuai Sun, et al.</div>
+          <div class="pub-venue">
+            <span class="badge badge-conf">EMNLP 2024 Findings</span>
+          </div>
+          <div class="pub-desc" style="font-size:13px;color:#555;margin-top:6px;">
+            A fully training-free image translation pipeline leveraging open-source models. The first work to introduce VLLM and diffusion models into image translation, outperforming Apple iOS and Microsoft Translator on human and GPT-4o evaluations.
+          </div>
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2406.11432" target="_blank">Paper</a>
+            <a href="https://github.com/qzp2018/AnyTrans" target="_blank">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">[2]</div>
+        <div class="pub-content">
+          <div class="pub-title">Multi-branch Collaborative Learning Network for 3D Visual Grounding</div>
+          <div class="pub-authors"><strong>Zhipeng Qian</strong>, Xiaoshuai Sun, et al.</div>
+          <div class="pub-venue">
+            <span class="badge badge-conf">ECCV 2024</span>
+          </div>
+          <div class="pub-desc" style="font-size:13px;color:#555;margin-top:6px;">
+            Dual-branch collaborative network (MCLN) with RSA and ASA modules for joint 3D Referring Expression Comprehension (3DREC) and Segmentation (3DRES). Achieves +2.05% Acc@0.5 on 3DREC and +3.96% mIoU on 3DRES.
+          </div>
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2407.05363" target="_blank">Paper</a>
+            <a href="https://github.com/qzp2018/MCLN" target="_blank">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-num">[1]</div>
+        <div class="pub-content">
+          <div class="pub-title">X-RefSeg3D: Enhancing Referring 3D Instance Segmentation via Structured Cross-Modal Graph Neural Networks</div>
+          <div class="pub-authors"><strong>Zhipeng Qian</strong>, Xiaoshuai Sun, et al.</div>
+          <div class="pub-venue">
+            <span class="badge badge-conf">AAAI 2024</span>
+          </div>
+          <div class="pub-desc" style="font-size:13px;color:#555;margin-top:6px;">
+            Addresses the 3D Referring Expression Segmentation task via POS-based word classification, chain reasoning for feature weighting, and staged graph convolution for relative spatial relationships. Improves mIoU by 3.67% while halving memory usage.
+          </div>
+          <div class="pub-links">
+            <a href="https://github.com/qzp2018/X-RefSeg3D" target="_blank">GitHub</a>
+            <a href="https://github.com/qzp2018/X-RefSeg3D" target="_blank">Code</a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Experience -->
+    <section class="section">
+      <h2>Experience</h2>
+
+      <div class="exp-item">
+        <div class="exp-logo">⚡</div>
+        <div class="exp-content">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:4px;">
+            <div>
+              <div class="exp-title">Kuaishou Technology <span style="font-weight:400;font-size:13px;color:var(--muted)">— Algorithm Engineer</span></div>
+              <div class="exp-sub">AI Search &amp; Multimodal Understanding Group</div>
+            </div>
+            <div class="exp-date">Jul 2025 – Present</div>
+          </div>
+          <div class="exp-desc">
+            Optimized multimodal search recall for similar-product search. Built a full composed-search pipeline from scratch (data pipeline, model training, feature indexing, TRT deployment). Led AI search strategy research for 4 business scenarios (query suggestions, rich text, barrage words, capsule keywords), all live in A/B experiments.
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-logo">🔬</div>
+        <div class="exp-content">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:4px;">
+            <div>
+              <div class="exp-title">Alibaba DAMO Academy <span style="font-weight:400;font-size:13px;color:var(--muted)">— Research Intern</span></div>
+              <div class="exp-sub">Tongyi Lab · Multilingual Translation Team</div>
+            </div>
+            <div class="exp-date">Mar 2024 – Sep 2024</div>
+          </div>
+          <div class="exp-desc">
+            Explored frontier multimodal translation research. Built a novel image translation pipeline integrating LLM and diffusion models (published at EMNLP 2024). Contributed to the <em>Gummy</em> speech translation model (showcased at Yunqi Conference) by constructing SFT data to mitigate over-translation and hallucination in streaming translation.
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Education -->
+    <section class="section">
+      <h2>Education</h2>
+
+      <div class="edu-item">
+        <div class="edu-logo">🏫</div>
+        <div class="exp-content">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:4px;">
+            <div>
+              <div class="exp-title">Xiamen University</div>
+              <div class="exp-sub">M.S. in Artificial Intelligence · Institute of Artificial Intelligence</div>
+            </div>
+            <div class="exp-date">Sep 2022 – Jun 2025</div>
+          </div>
+          <div class="exp-desc">
+            GPA: 3.54 · Advisor: <a href="#">Prof. Xiaoshuai Sun</a><br>
+            Research: Multimodal Learning, 3D Perception, Multimodal Large Language Models<br>
+            Honors: National Scholarship, Wande Scholarship, "Three Good Students"
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-logo">📚</div>
+        <div class="exp-content">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:4px;">
+            <div>
+              <div class="exp-title">Anhui University</div>
+              <div class="exp-sub">B.S. in Statistics · Science Experiment Class</div>
+            </div>
+            <div class="exp-date">Sep 2018 – Jun 2022</div>
+          </div>
+          <div class="exp-desc">
+            GPA: 3.95 · Rank: 3 / 24 (Guaranteed-admission track, top 50%)<br>
+            CET-4: 571 · CET-6: 542<br>
+            Honors: Wendian First-class Scholarship, Academic Technology Scholarship ×2, Excellent Graduate
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Awards -->
+    <section class="section">
+      <h2>Honors &amp; Awards</h2>
+      <ul class="award-list">
+        <li>Xiamen University Graduate National Scholarship</li>
+        <li>Xiamen University Wande Scholarship</li>
+        <li>Xiamen University "Three Good Students"</li>
+        <li>Anhui University Wendian First-class Scholarship</li>
+        <li>Anhui University Wendian Second-class Scholarship ×2</li>
+        <li>Anhui University Academic Technology Scholarship ×2</li>
+        <li>Anhui University "Three Good Students" · Excellent Graduate</li>
+        <li>National Mathematical Modeling Competition — Provincial First Prize</li>
+        <li>MCM/ICM — Meritorious Winner (M Prize)</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <p>© 2025 Zhipeng Qian · Last updated June 2025</p>
+  <p style="margin-top:4px;">Design inspired by <a href="https://yueeeeeeee.github.io/" target="_blank">minimal-light</a></p>
+</footer>
+
+</body>
+</html>
