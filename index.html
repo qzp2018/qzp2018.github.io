@@ -102,7 +102,7 @@
     }
     .paper-box {
       display: grid;
-      grid-template-columns: 180px minmax(0, 1fr);
+      grid-template-columns: 230px minmax(0, 1fr);
       gap: 20px;
       align-items: stretch;
       padding: 18px 0;
@@ -111,35 +111,19 @@
     .paper-box:last-of-type { border-bottom: 1px solid #e5e5e5; margin-bottom: 24px; }
     .paper-box-visual {
       position: relative;
-      min-height: 118px;
+      height: 145px;
       border-radius: 7px;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.9);
-      font-family: "Ubuntu Mono", monospace;
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      text-align: center;
-      padding: 16px;
       box-sizing: border-box;
+      background: #f7f7f7;
+      border: 1px solid #ececec;
     }
-    .paper-box-visual::after {
-      content: "";
-      position: absolute;
-      width: 110px;
-      height: 110px;
-      right: -38px;
-      bottom: -52px;
-      border: 1px solid rgba(255, 255, 255, 0.32);
-      border-radius: 50%;
-      box-shadow: 0 0 0 18px rgba(255, 255, 255, 0.08), 0 0 0 36px rgba(255, 255, 255, 0.05);
+    .paper-box-visual img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
     }
-    .visual-cir { background: linear-gradient(135deg, #173f73, #4d79aa); }
-    .visual-translation { background: linear-gradient(135deg, #77503d, #c08463); }
-    .visual-grounding { background: linear-gradient(135deg, #315d52, #68a393); }
-    .visual-segmentation { background: linear-gradient(135deg, #574376, #9178b2); }
     .badge {
       position: absolute;
       top: 9px;
@@ -166,12 +150,12 @@
       header { padding: 20px 20px 0; }
       section { border: 1px solid #e5e5e5; border-width: 1px 0; padding: 20px; margin: 0 0 20px; }
       .image.avatar img { width: 100px; padding: 10px; }
-      .paper-box { grid-template-columns: 160px minmax(0, 1fr); }
+      .paper-box { grid-template-columns: 220px minmax(0, 1fr); }
     }
     @media print, screen and (max-width: 480px) {
       body { padding: 10px; }
       .paper-box { grid-template-columns: 1fr; gap: 12px; }
-      .paper-box-visual { min-height: 105px; }
+      .paper-box-visual { height: auto; aspect-ratio: 16 / 9; }
     }
 
     /* dark mode */
@@ -242,9 +226,9 @@
     <h2 id="publications">Publications</h2>
 
     <div class="paper-box">
-      <div class="paper-box-visual visual-cir">
+      <div class="paper-box-visual">
         <span class="badge">ACL Findings 2026</span>
-        COMPOSED IMAGE RETRIEVAL
+        <img src="./assets/publications/csmcir.png" alt="Overview of the CSMCIR framework" loading="lazy" decoding="async">
       </div>
       <div class="paper-box-text">
         <p class="paper-title"><strong>CSMCIR: CoT-Enhanced Symmetric Alignment with Memory Bank for Composed Image Retrieval</strong></p>
@@ -255,9 +239,9 @@
     </div>
 
     <div class="paper-box">
-      <div class="paper-box-visual visual-translation">
+      <div class="paper-box-visual">
         <span class="badge">EMNLP Findings 2024</span>
-        IMAGE TRANSLATION
+        <img src="./assets/publications/anytrans.png" alt="Overview of the AnyTrans framework" loading="lazy" decoding="async">
       </div>
       <div class="paper-box-text">
         <p class="paper-title"><strong>AnyTrans: Translate AnyText in the Image with Large Scale Models</strong></p>
@@ -268,9 +252,9 @@
     </div>
 
     <div class="paper-box">
-      <div class="paper-box-visual visual-grounding">
+      <div class="paper-box-visual">
         <span class="badge">ECCV 2024</span>
-        3D VISUAL GROUNDING
+        <img src="./assets/publications/mcln.png" alt="Overview of the MCLN framework" loading="lazy" decoding="async">
       </div>
       <div class="paper-box-text">
         <p class="paper-title"><strong>Multi-branch Collaborative Learning Network for 3D Visual Grounding</strong></p>
@@ -281,9 +265,9 @@
     </div>
 
     <div class="paper-box">
-      <div class="paper-box-visual visual-segmentation">
+      <div class="paper-box-visual">
         <span class="badge">AAAI 2024</span>
-        3D INSTANCE SEGMENTATION
+        <img src="./assets/publications/xrefseg3d.png" alt="Overview of the X-RefSeg3D framework" loading="lazy" decoding="async">
       </div>
       <div class="paper-box-text">
         <p class="paper-title"><strong>X-RefSeg3D: Enhancing Referring 3D Instance Segmentation via Structured Cross-Modal Graph Neural Networks</strong></p>
@@ -295,6 +279,22 @@
 
     <!-- Experience -->
     <h2 id="experience">Experience</h2>
+
+    <table style="width:100%;margin-bottom:12px;">
+      <tr style="border:none;">
+        <td style="width:55%;border:none;vertical-align:top;">
+          <strong>Kuaishou Technology (快手科技)</strong><br>
+          <i>Algorithm Engineer · AI Search &amp; Multimodal Understanding</i>
+        </td>
+        <td style="width:25%;border:none;vertical-align:top;color:#595959;">
+          Beijing, China<br>
+          Jul. 2025 – Aug. 2026
+        </td>
+        <td style="width:20%;border:none;text-align:right;vertical-align:middle;">
+          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="72" height="72" fill="#FF7B00" style="display:block;margin-left:auto;"><title>Kuaishou</title><path d="M18.315 12.264c2.33 0 4.218 1.88 4.218 4.2V19.8c0 2.32-1.888 4.2-4.218 4.2h-6.202a4.218 4.218 0 0 1-4.023-2.938l-3.676 1.833a2.04 2.04 0 0 1-2.731-.903 2.015 2.015 0 0 1-.216-.907v-5.94a2.03 2.03 0 0 1 2.035-2.024 2.044 2.044 0 0 1 .919.218l3.673 1.85a4.218 4.218 0 0 1 4.02-2.925zm-.062 2.162h-6.078c-1.153 0-2.09.921-2.108 2.065v3.247c0 1.148.925 2.081 2.073 2.1h6.113c1.153 0 2.09-.922 2.109-2.065v-3.247a2.104 2.104 0 0 0-2.074-2.1zM4.18 15.72a.554.554 0 0 0-.555.542v3.734a.556.556 0 0 0 .798.496l.01-.004 3.463-1.756V17.51l-3.467-1.73a.557.557 0 0 0-.249-.06zM9.28 0a5.667 5.667 0 0 1 4.98 2.965 4.921 4.921 0 0 1 3.36-1.317c2.714 0 4.913 2.177 4.913 4.863 0 2.686-2.2 4.863-4.912 4.863a4.921 4.921 0 0 1-3.996-2.034 5.651 5.651 0 0 1-4.345 2.034c-3.131 0-5.67-2.546-5.67-5.687C3.61 2.546 6.149 0 9.28 0Zm8.34 3.926c-1.441 0-2.61 1.157-2.61 2.585s1.169 2.585 2.61 2.585c1.443 0 2.612-1.157 2.612-2.585s-1.169-2.585-2.611-2.585zM9.28 2.287a3.395 3.395 0 0 0-3.39 3.4c0 1.877 1.518 3.4 3.39 3.4a3.395 3.395 0 0 0 3.39-3.4c0-1.878-1.518-3.4-3.39-3.4z"/></svg>
+        </td>
+      </tr>
+    </table>
 
     <table style="width:100%;margin-bottom:12px;">
       <tr style="border:none;">
