@@ -70,7 +70,15 @@
     /* avatar */
     .image { border-radius: 0.35em; border: 0; display: inline-block; position: relative; }
     .image.avatar { border-radius: 100%; }
-    .image.avatar img { border-radius: 100%; width: 45%; padding: 20px; }
+    .image.avatar img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 4px 14px rgba(4, 51, 97, 0.16);
+    }
     #header .image.avatar { margin: 0 0 1em 0; width: 8em; }
 
     /* custom elements */
@@ -176,8 +184,7 @@
   <!-- ══════════ SIDEBAR ══════════ -->
   <header>
     <a class="image avatar">
-      <!-- Replace with your actual photo: <img src="./assets/img/avatar.jpg" alt="Zhipeng Qian" /> -->
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23e8eef7'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%23b0c0d8'/%3E%3Cellipse cx='50' cy='82' rx='28' ry='20' fill='%23b0c0d8'/%3E%3C/svg%3E" alt="Zhipeng Qian" />
+      <img src="./assets/img/avatar.jpg" alt="Zhipeng Qian" />
     </a>
 
     <h1>Zhipeng Qian</h1>
@@ -205,8 +212,7 @@
     <p>
       I am a first-year Ph.D. student in <strong>Computer Science and Technology</strong> at
       <a href="https://cc.nankai.edu.cn/" target="_blank">Nankai University</a>,
-      where I am a member of the <a href="https://mmcheng.net/" target="_blank">VCIP Lab</a> and
-      <a href="https://houqb.github.io/group/" target="_blank">HVision Group</a>,
+      where I am a member of the <a href="https://mmcheng.net/" target="_blank">VCIP Lab</a>,
       advised by <a href="https://houqb.github.io/" target="_blank">Prof. Qibin Hou</a>.
       I received my M.S. degree from the <a href="https://mac.xmu.edu.cn/" target="_blank">MAC Lab</a>,
       Institute of Artificial Intelligence, <strong>Xiamen University</strong>,
